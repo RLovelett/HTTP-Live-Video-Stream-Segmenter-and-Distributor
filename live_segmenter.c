@@ -81,7 +81,7 @@ static AVStream *add_output_stream(AVFormatContext *output_format_context, AVStr
         output_codec_context->block_align = input_codec_context->block_align;
       }
       break;
-    case CODEC_TYPE_VIDEO:
+    case AVMEDIA_TYPE_VIDEO:
       output_codec_context->pix_fmt = input_codec_context->pix_fmt;
       output_codec_context->width = input_codec_context->width;
       output_codec_context->height = input_codec_context->height;
@@ -189,7 +189,7 @@ int main(int argc, char **argv)
   for (i = 0; i < input_context->nb_streams && (video_index < 0 || audio_index < 0); i++) 
   {
     switch (input_context->streams[i]->codec->codec_type) {
-      case CODEC_TYPE_VIDEO:
+      case AVMEDIA_TYPE_VIDEO:
         video_index = i;
         input_context->streams[i]->discard = AVDISCARD_NONE;
         video_stream = add_output_stream(output_context, input_context->streams[i]);
