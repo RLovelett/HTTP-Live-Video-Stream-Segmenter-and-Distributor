@@ -67,7 +67,7 @@ static AVStream *add_output_stream(AVFormatContext *output_format_context, AVStr
 
   switch (input_codec_context->codec_type) 
   {
-    case CODEC_TYPE_AUDIO:
+    case AVMEDIA_TYPE_AUDIO:
       output_codec_context->channel_layout = input_codec_context->channel_layout;
       output_codec_context->sample_rate = input_codec_context->sample_rate;
       output_codec_context->channels = input_codec_context->channels;
@@ -194,7 +194,7 @@ int main(int argc, char **argv)
         input_context->streams[i]->discard = AVDISCARD_NONE;
         video_stream = add_output_stream(output_context, input_context->streams[i]);
         break;
-      case CODEC_TYPE_AUDIO:
+      case AVMEDIA_TYPE_AUDIO:
         audio_index = i;
         input_context->streams[i]->discard = AVDISCARD_NONE;
         audio_stream = add_output_stream(output_context, input_context->streams[i]);
