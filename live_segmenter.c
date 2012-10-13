@@ -146,7 +146,7 @@ int main(int argc, char **argv)
   }
 
   AVFormatContext *input_context = NULL;
-  int ret = av_open_input_file(&input_context, config.input_filename, input_format, 0, NULL);
+  int ret = avformat_open_input(&input_context, config.input_filename, input_format, NULL);
   if (ret != 0) 
   {
     fprintf(stderr, "Segmenter error: Could not open input file, make sure it is an mpegts file: %d\n", ret);
@@ -201,7 +201,7 @@ int main(int argc, char **argv)
     }
   }
 
-  if (av_set_parameters(output_context, NULL) < 0) 
+  if (avformat_write_header(output_context, NULL) < 0) 
   {
     fprintf(stderr, "Segmenter error: Invalid output format parameters\n");
     exit(1);
@@ -231,7 +231,7 @@ int main(int argc, char **argv)
     exit(1);
   }
 
-  if (av_write_header(output_context)) 
+  if (avformat_write_header(output_context, NULL)) 
   {
     fprintf(stderr, "Segmenter error: Could not write mpegts header to first output file\n");
     exit(1);
